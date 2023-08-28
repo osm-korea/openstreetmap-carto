@@ -484,7 +484,8 @@
 #county-names {
   [zoom >= 8][way_pixels > 12000][way_pixels < 196000] {
     [admin_level = '5'][zoom >= 8],
-    [admin_level = '6'][zoom >= 10] {
+    [admin_level = '6'][zoom >= 10],
+    [admin_level = '7'][zoom >= 10] {
       text-name: "[name]";
       text-size: 10;
       text-wrap-width: 30; // 3.0 em
@@ -511,7 +512,8 @@
           text-margin: 9.1; // 0.7 em
         }
       }
-      [admin_level = '6'][zoom >= 12] {
+      [admin_level = '6'][zoom >= 12],
+      [admin_level = '7'][zoom >= 12] {
         text-size: 11;
         text-wrap-width: 40; // 3.6 em
         text-line-spacing: -1.4; // -0.13 em

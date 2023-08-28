@@ -1287,7 +1287,7 @@ Layer:
             END as population,
             round(ascii(md5(osm_id::text)) / 55) AS dir -- base direction factor on geometry to be consistent across metatiles
           FROM planet_osm_point
-          WHERE place IN ('city', 'town', 'village', 'hamlet')
+          WHERE place IN ('city', 'town', 'village', 'hamlet', 'county') -- show 'gun's like 'si's
             AND name IS NOT NULL
             AND tags @> 'capital=>yes'
           ORDER BY population DESC
@@ -1330,7 +1330,7 @@ Layer:
             name,
             score,
             CASE
-              WHEN (place = 'city') THEN 1
+              WHEN place IN ('city', 'county') THEN 1 -- show 'gun's like 'si's
               ELSE 2
             END as category,
             round(ascii(md5(osm_id::text)) / 55) AS dir -- base direction factor on geometry to be consistent across metatiles
@@ -1344,6 +1344,7 @@ Layer:
                   (CASE
                     WHEN (tags->'population' ~ '^[0-9]{1,8}$') THEN (tags->'population')::INTEGER
                     WHEN (place = 'city') THEN 100000
+                    WHEN (place = 'county') THEN 30000 -- show 'gun's like 'si's
                     WHEN (place = 'town') THEN 1000
                     ELSE 1
                   END)
@@ -1354,7 +1355,7 @@ Layer:
                   END)
                 ) AS score
               FROM planet_osm_point
-              WHERE place IN ('city', 'town')
+              WHERE place IN ('city', 'town', 'county')
                 AND name IS NOT NULL
                 AND NOT (tags @> 'capital=>yes')
             ) as p
@@ -1514,7 +1515,7 @@ Layer:
           WHERE ST_PointOnSurface(way) && !bbox!
             AND name IS NOT NULL
             AND boundary = 'administrative'
-            AND admin_level IN ('5', '6')
+            AND admin_level IN ('5', '6', '7') -- show '일반구' like '자치구'
             AND way_area > 12000*POW(!scale_denominator!*0.001*0.28,2)
             AND way_area < 196000*POW(!scale_denominator!*0.001*0.28,2)
             AND osm_id < 0
