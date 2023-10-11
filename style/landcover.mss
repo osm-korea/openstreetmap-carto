@@ -25,6 +25,7 @@
 @farmland-line: #c7c9ae;    // Lch(80,14,112)
 @farmyard: #f5dcba;         // Lch(89,20,80)
 @farmyard-line: #d1b48c;    // Lch(75,25,80)
+@paddy: #87aade;            // Lch(135,170,222)
 
 // --- Transport ----
 
@@ -338,6 +339,20 @@
       }
       [way_pixels >= 4]  { polygon-gamma: 0.75; }
       [way_pixels >= 64] { polygon-gamma: 0.3;  }
+    }
+  }
+
+  [feature = 'landuse_paddy'] {
+    [zoom >= 5] {
+      polygon-fill: @paddy;
+      [way_pixels >= 4]  { polygon-gamma: 0.75; }
+      [way_pixels >= 64] { polygon-gamma: 0.3;  }
+    }
+    [zoom >= 13] {
+      polygon-pattern-file: url('patterns/paddy.svg');
+      polygon-pattern-alignment: global;
+      [way_pixels >= 4]  { polygon-pattern-gamma: 0.75; }
+      [way_pixels >= 64] { polygon-pattern-gamma: 0.3;  }
     }
   }
 
