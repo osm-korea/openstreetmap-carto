@@ -2174,7 +2174,7 @@
   [feature = 'landuse_grass'],
   [feature = 'landuse_allotments'],
   [feature = 'landuse_farmyard'],
-  [feature = 'landuse_farmland'],
+  [feature = 'landuse_paddy'],
   [feature = 'landuse_greenhouse_horticulture'],
   [feature = 'shop'][shop = 'mall'][location != 'underground'],
   [feature = 'landuse_retail'],
@@ -2270,6 +2270,7 @@
       }
       [feature = 'landuse_farm'],
       [feature = 'landuse_farmland'],
+      [feature = 'landuse_paddy'],
       [feature = 'landuse_greenhouse_horticulture'] {
         text-fill: darken(@farmland, 50%);
       }

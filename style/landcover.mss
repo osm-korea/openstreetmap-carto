@@ -25,7 +25,7 @@
 @farmland-line: #c7c9ae;    // Lch(80,14,112)
 @farmyard: #f5dcba;         // Lch(89,20,80)
 @farmyard-line: #d1b48c;    // Lch(75,25,80)
-@paddy: #87aade;            // Lch(135,170,222)
+@paddy: #eeffd5;            // Lch(135,170,222)
 
 // --- Transport ----
 
