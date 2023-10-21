@@ -2270,9 +2270,11 @@
       }
       [feature = 'landuse_farm'],
       [feature = 'landuse_farmland'],
-      [feature = 'landuse_paddy'],
       [feature = 'landuse_greenhouse_horticulture'] {
         text-fill: darken(@farmland, 50%);
+      }
+      [feature = 'landuse_paddy'] {
+        text-fill: darken(@paddy, 50%);
       }
       [feature = 'shop'][shop = 'mall'],
       [feature = 'landuse_retail'] {
