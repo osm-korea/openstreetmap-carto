@@ -310,6 +310,11 @@ function filter_tags_generic(tags)
 
     -- Convert layer to an integer
     tags['layer'] = layer(tags['layer'])
+
+    -- Move ref to name for apartment buildings
+    if tags['building'] == "apartments" and tags['ref'] then
+        tags['name'] = tags['ref']
+    end
     return 0, tags
 end
 
