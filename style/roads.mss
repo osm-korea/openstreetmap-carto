@@ -807,7 +807,7 @@
     }
 
     [feature = 'railway_subway'],
-    [feature = 'railway_construction']['construction' = 'subway'] {
+    [feature = 'railway_construction'][construction = 'subway'] {
       #bridges {
         [zoom >= 14] {
           line-width: 5.5;
@@ -830,7 +830,6 @@
     }
 
     [feature = 'railway_rail'],
-    [feature = 'railway_preserved'],
     [feature = 'railway_monorail'][zoom >= 14] {
       #bridges {
         [zoom >= 13] {
@@ -852,9 +851,8 @@
     }
 
     [feature = 'railway_disused'][zoom >= 15],
-    [feature = 'railway_construction']['construction' != 'subway'],
-    [feature = 'railway_miniature'][zoom >= 15],
-    [feature = 'railway_INT-preserved-ssy'][zoom >= 14] {
+    [feature = 'railway_construction'][construction != 'subway'],
+    [feature = 'railway_miniature'][zoom >= 15] {
       #bridges {
         [zoom >= 13] {
           line-width: 6;
@@ -1025,7 +1023,6 @@
     }
 
     [feature = 'railway_rail'][zoom >= 13],
-    [feature = 'railway_preserved'][zoom >= 13],
     [feature = 'railway_monorail'][zoom >= 14] {
       #bridges {
         line-width: 5;
@@ -1045,9 +1042,8 @@
     }
 
     [feature = 'railway_disused'][zoom >= 15],
-    [feature = 'railway_construction']['construction' != 'subway'],
-    [feature = 'railway_miniature'][zoom >= 15],
-    [feature = 'railway_INT-preserved-ssy'][zoom >= 14] {
+    [feature = 'railway_construction'][construction != 'subway'],
+    [feature = 'railway_miniature'][zoom >= 15] {
       #bridges {
         [zoom >= 13] {
           line-width: 4.5;
@@ -1071,7 +1067,7 @@
     }
 
     [feature = 'railway_subway'],
-    [feature = 'railway_construction']['construction' = 'subway'] {
+    [feature = 'railway_construction'][construction = 'subway'] {
       #bridges {
         [zoom >= 14] {
           line-width: 4;
@@ -2527,7 +2523,9 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
 
-    [feature = 'railway_rail'][zoom >= 8],
+    [feature = 'railway_rail'][zoom >= 8][zoom < 10],
+    [feature = 'railway_rail'][preserved != 'yes'][zoom >= 10][zoom < 12],
+    [feature = 'railway_rail'][zoom >= 12],
     [feature = 'railway_INT-spur-siding-yard'][zoom >= 13] {
       [zoom < 13] {
         line-color: #787878;
@@ -2553,7 +2551,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
               dark/line-width: 3;
               light/line-width: 1;
             }
-            [zoom >= 15] {
+            [zoom >= 15][preserved != 'yes'] {
               light/line-dasharray: 0,8,8,1;
             }
             [zoom >= 18] {
@@ -2571,6 +2569,13 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
               light/line-width: 1;
             }
           }
+          [preserved = 'yes'] {
+            dark/line-width: 3;
+            dark/line-color: #666;
+            light/line-width: 1;
+            light/line-color: white;
+            light/line-dasharray: 0,1,8,1;
+          }
         }
         #tunnels {
           line-color: #787878;
@@ -2582,7 +2587,7 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
             line-width: 1.9;
             line-dasharray: 3,3;
             [zoom >= 18] {
-            line-width: 2.7;
+              line-width: 2.7;
             }
           }
           [feature = 'railway_rail'][zoom >= 18] {
@@ -2596,12 +2601,24 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     [feature = 'railway_light_rail'],
     [feature = 'railway_funicular'],
     [feature = 'railway_narrow_gauge'] {
-      [zoom >= 8] {
+      [zoom >= 8][zoom < 10],
+      [preserved != 'yes'][zoom >= 10][zoom < 12],
+      [zoom >= 12] {
         line-color: #ccc;
         [zoom >= 10] { line-color: #aaa; }
         [zoom >= 13] { line-color: #666; }
         line-width: 1;
         [zoom >= 13] { line-width: 2; }
+        [preserved = 'yes'][zoom >= 13] {
+          #roads-fill, #bridges {
+            dark/line-width: 3;
+            dark/line-color: #999;
+            light/line-width: 1;
+            light/line-color: white;
+            light/line-dasharray: 0,1,8,1;
+            light/line-join: round;
+          }
+        }
         #tunnels {
           line-dasharray: 5,3;
         }
@@ -2615,6 +2632,15 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         dashes/line-width: 3;
         dashes/line-color: #999;
         dashes/line-dasharray: 1,10;
+
+        [preserved = 'yes'] {
+          line/line-width: 3;
+          line/line-color: #bbb;
+          dashes/line-width: 1;
+          dashes/line-color: white;
+          dashes/line-dasharray: 0,1,8,1;
+          dashes/line-join: round;
+        }
       }
     }
 
@@ -2648,6 +2674,16 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
             line-width: 2;
           }
         }
+        [preserved = 'yes'][zoom >= 15] {
+          #roads-fill, #bridges {
+            dark/line-width: 3;
+            dark/line-color: #999;
+            light/line-width: 1;
+            light/line-color: white;
+            light/line-dasharray: 0,1,8,1;
+            light/line-join: round;
+          }
+        }
         #tunnels {
           line-dasharray: 5,3;
         }
@@ -2658,6 +2694,16 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       [zoom >= 12] {
         line-width: 2;
         line-color: #999;
+        [preserved = 'yes'][zoom >= 15] {
+          #roads-fill, #bridges {
+            dark/line-width: 3;
+            dark/line-color: #999;
+            light/line-width: 1;
+            light/line-color: white;
+            light/line-dasharray: 0,1,8,1;
+            light/line-join: round;
+          }
+        }
         #tunnels {
           line-dasharray: 5,3;
         }
@@ -2666,38 +2712,6 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         [zoom >= 14] {
           line-width: 2;
           line-color: #999;
-        }
-      }
-    }
-
-    [feature = 'railway_preserved'] {
-      [zoom >= 12] {
-        dark/line-width: 1.5;
-        dark/line-color: #aaa;
-        dark/line-join: round;
-        [zoom >= 13] {
-          dark/line-width: 3;
-          dark/line-color: #999999;
-          light/line-width: 1;
-          light/line-color: white;
-          light/line-dasharray: 0,1,8,1;
-          light/line-join: round;
-        }
-      }
-    }
-
-    [feature = 'railway_INT-preserved-ssy'] {
-      [zoom >= 12] {
-        dark/line-width: 1;
-        dark/line-color: #aaa;
-        dark/line-join: round;
-        [zoom >= 13] {
-          dark/line-width: 2;
-          dark/line-color: #999999;
-          light/line-width: 0.8;
-          light/line-color: white;
-          light/line-dasharray: 0,1,8,1;
-          light/line-join: round;
         }
       }
     }
@@ -2714,6 +2728,16 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
         line/line-dasharray: 2,3;
         line/line-cap: round;
         line/line-join: round;
+
+        [preserved = 'yes'] {
+          line/line-color: #999;
+          background/line-color: white;
+          background/line-dasharray: 0,1,8,1;
+        }
+
+        #tunnels {
+          line/line-dasharray: 3,4;
+        }
       }
     }
 
@@ -2780,21 +2804,42 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 }
 
 #turning-circle-casing {
-  [int_tc_type = 'primary'][zoom >= 15] {
-    marker-fill: @primary-casing;
-    marker-width: @primary-width-z15 * 1.6 + 2 * @casing-width-z15;
-    marker-height: @primary-width-z15 * 1.6 + 2 * @casing-width-z15;
+  [int_tc_type = 'trunk'][zoom >= 15] {
+    marker-fill: @trunk-casing;
+    marker-width: @trunk-width-z15 * 1.6 + 2 * @major-casing-width-z15;
+    marker-height: @trunk-width-z15 * 1.6 + 2 * @major-casing-width-z15;
     [zoom >= 17] {
-      marker-width: @primary-width-z17 * 1.6 + 2 * @casing-width-z17;
-      marker-height: @primary-width-z17 * 1.6 + 2 * @casing-width-z17;
+      marker-width: @trunk-width-z17 * 1.6 + 2 * @major-casing-width-z17;
+      marker-height: @trunk-width-z17 * 1.6 + 2 * @major-casing-width-z17;
     }
     [zoom >= 18] {
-      marker-width: @primary-width-z18 * 1.6 + 2 * @casing-width-z18;
-      marker-height: @primary-width-z18 * 1.6 + 2 * @casing-width-z18;
+      marker-width: @trunk-width-z18 * 1.6 + 2 * @major-casing-width-z18;
+      marker-height: @trunk-width-z18 * 1.6 + 2 * @major-casing-width-z18;
     }
     [zoom >= 19] {
-      marker-width: @primary-width-z19 * 1.6 + 2 * @casing-width-z19;
-      marker-height: @primary-width-z19 * 1.6 + 2 * @casing-width-z19;
+      marker-width: @trunk-width-z19 * 1.6 + 2 * @major-casing-width-z19;
+      marker-height: @trunk-width-z19 * 1.6 + 2 * @major-casing-width-z19;
+    }
+    marker-allow-overlap: true;
+    marker-ignore-placement: true;
+    marker-line-width: 0;
+  }
+
+  [int_tc_type = 'primary'][zoom >= 15] {
+    marker-fill: @primary-casing;
+    marker-width: @primary-width-z15 * 1.6 + 2 * @major-casing-width-z15;
+    marker-height: @primary-width-z15 * 1.6 + 2 * @major-casing-width-z15;
+    [zoom >= 17] {
+      marker-width: @primary-width-z17 * 1.6 + 2 * @major-casing-width-z17;
+      marker-height: @primary-width-z17 * 1.6 + 2 * @major-casing-width-z17;
+    }
+    [zoom >= 18] {
+      marker-width: @primary-width-z18 * 1.6 + 2 * @major-casing-width-z18;
+      marker-height: @primary-width-z18 * 1.6 + 2 * @major-casing-width-z18;
+    }
+    [zoom >= 19] {
+      marker-width: @primary-width-z19 * 1.6 + 2 * @major-casing-width-z19;
+      marker-height: @primary-width-z19 * 1.6 + 2 * @major-casing-width-z19;
     }
     marker-allow-overlap: true;
     marker-ignore-placement: true;
@@ -2803,23 +2848,23 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 
   [int_tc_type = 'secondary'][zoom >= 15] {
     marker-fill: @secondary-casing;
-    marker-width: @secondary-width-z15 * 1.6 + 2 * @casing-width-z15;
-    marker-height: @secondary-width-z15 * 1.6 + 2 * @casing-width-z15;
+    marker-width: @secondary-width-z15 * 1.6 + 2 * @secondary-casing-width-z15;
+    marker-height: @secondary-width-z15 * 1.6 + 2 * @secondary-casing-width-z15;
     [zoom >= 16] {
-      marker-width: @secondary-width-z16 * 1.6 + 2 * @casing-width-z16;
-      marker-height: @secondary-width-z16 * 1.6 + 2 * @casing-width-z16;
+      marker-width: @secondary-width-z16 * 1.6 + 2 * @secondary-casing-width-z16;
+      marker-height: @secondary-width-z16 * 1.6 + 2 * @secondary-casing-width-z16;
     }
     [zoom >= 17] {
-      marker-width: @secondary-width-z17 * 1.6 + 2 * @casing-width-z17;
-      marker-height: @secondary-width-z17 * 1.6 + 2 * @casing-width-z17;
+      marker-width: @secondary-width-z17 * 1.6 + 2 * @secondary-casing-width-z17;
+      marker-height: @secondary-width-z17 * 1.6 + 2 * @secondary-casing-width-z17;
     }
     [zoom >= 18] {
-      marker-width: @secondary-width-z18 * 1.6 + 2 * @casing-width-z18;
-      marker-height: @secondary-width-z18 * 1.6 + 2 * @casing-width-z18;
+      marker-width: @secondary-width-z18 * 1.6 + 2 * @secondary-casing-width-z18;
+      marker-height: @secondary-width-z18 * 1.6 + 2 * @secondary-casing-width-z18;
     }
     [zoom >= 19] {
-      marker-width: @secondary-width-z19 * 1.6 + 2 * @casing-width-z19;
-      marker-height: @secondary-width-z19 * 1.6 + 2 * @casing-width-z19;
+      marker-width: @secondary-width-z19 * 1.6 + 2 * @secondary-casing-width-z19;
+      marker-height: @secondary-width-z19 * 1.6 + 2 * @secondary-casing-width-z19;
     }
     marker-allow-overlap: true;
     marker-ignore-placement: true;
@@ -2946,6 +2991,27 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
 }
 
 #turning-circle-fill {
+  [int_tc_type = 'trunk'][zoom >= 15] {
+    marker-fill: @trunk-fill;
+    marker-width: @trunk-width-z15 * 1.6;
+    marker-height: @trunk-width-z15 * 1.6;
+    [zoom >= 17] {
+      marker-width: @trunk-width-z17 * 1.6;
+      marker-height: @trunk-width-z17 * 1.6;
+    }
+    [zoom >= 18] {
+      marker-width: @trunk-width-z18 * 1.6;
+      marker-height: @trunk-width-z18 * 1.6;
+    }
+    [zoom >= 19] {
+      marker-width: @trunk-width-z19 * 1.6;
+      marker-height: @trunk-width-z19 * 1.6;
+    }
+    marker-allow-overlap: true;
+    marker-ignore-placement: true;
+    marker-line-width: 0;
+  }
+
   [int_tc_type = 'primary'][zoom >= 15] {
     marker-fill: @primary-fill;
     marker-width: @primary-width-z15 * 1.6;
@@ -3131,9 +3197,11 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
     marker-ignore-placement: true;
     marker-line-width: 0;
 
+    [int_tc_type = 'trunk'] { marker-fill: @trunk-casing; }
     [int_tc_type = 'primary'] { marker-fill: @primary-casing; }
     [int_tc_type = 'secondary'] { marker-fill: @secondary-casing; }
-    [int_tc_type = 'tertiary'] { marker-fill: @primary-casing; }
+    [int_tc_type = 'tertiary'] { marker-fill: @tertiary-casing; }
+    [int_tc_type = 'unclassified'] { marker-fill: @residential-casing; }
     [int_tc_type = 'residential'] { marker-fill: @residential-casing; }
     [int_tc_type = 'living_street'] { marker-fill: @living-street-casing; }
     [int_tc_type = 'service'] { marker-fill: @service-casing; }
@@ -4143,7 +4211,6 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
   [railway = 'subway'],
   [railway = 'narrow_gauge'],
   [railway = 'light_rail'],
-  [railway = 'preserved'],
   [railway = 'funicular'],
   [railway = 'monorail'],
   [railway = 'tram'] {
@@ -4222,9 +4289,11 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
       }
     }
   }
-  /* Other minor railway styles. For service rails, see:
-     https://github.com/gravitystorm/openstreetmap-carto/pull/2687 */
-  [railway = 'preserved'],
+
+  /*
+  Other minor railway styles. For service rails, see:
+  https://github.com/gravitystorm/openstreetmap-carto/pull/2687
+  */
   [railway = 'miniature'],
   [railway = 'disused'],
   [railway = 'construction'] {
