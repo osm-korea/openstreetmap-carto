@@ -132,7 +132,10 @@ local delete_tags = {
     'import',
     'import_uuid',
     'OBJTYPE',
-    'SK53_bulk:load'
+    'SK53_bulk:load',
+
+    -- ncat (KR)
+    'ncat'
 }
 delete_prefixes = {
     'note:',
@@ -241,6 +244,37 @@ local excluded_railway_service = {
     siding = true,
     yard = true
 }
+
+local leisure_tags_name = {
+    playground = {ko = "놀이터"},
+    park       = {ko = "공원"}
+}
+
+local sport_tags_name = {
+    soccer       = {ko = "축구장"},
+    tennis       = {ko = "테니스장"},
+    basketball   = {ko = "농구장"},
+    baseball     = {ko = "야구장"},
+    swimming     = {ko = "수영장"},
+    fitness      = {ko = "피트니스 센터"},
+    golf         = {ko = "골프장"},
+    table_tennis = {ko = "탁구장"},
+    volleyball   = {ko = "배구장"},
+    boules       = {ko = "볼링장"},
+    skateboard   = {ko = "스케이트파크"},
+    futsal       = {ko = "풋살장"},
+    jokgu        = {ko = "족구장"},
+    badminton    = {ko = "배드민턴장"},
+    archery      = {ko = "양궁장"},
+    gateball     = {ko = "게이트볼장"},
+    taekwondo    = {ko = "태권도 도장"},
+    billiards    = {ko = "당구장"},
+    climbing     = {ko = "클라이밍 시설"},
+    shooting     = {ko = "사격장"},
+    pilates      = {ko = "필라테스 시설"},
+    skiing       = {ko = "스키장"}
+}
+
 --- Gets the z_order for a set of tags
 -- @param tags OSM tags
 -- @return z_order if an object with z_order, otherwise nil
@@ -315,6 +349,17 @@ function filter_tags_generic(tags)
     if tags['building'] == "apartments" and tags['ref'] then
         tags['name'] = tags['ref']
     end
+
+    -- add Korean name to unnamed features
+    if tags['name'] == nil then
+        if leisure_tags_name[tags['leisure']] then
+            tags['name'] = leisure_tags_name[tags['leisure']].ko
+        end
+        if sport_tags_name[tags['sport']] then
+            tags['name'] = sport_tags_name[tags['sport']].ko
+        end
+    end
+
     return 0, tags
 end
 
